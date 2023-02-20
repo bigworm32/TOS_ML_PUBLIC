@@ -1,6 +1,6 @@
 #Copyright 2023 Bigworm, All rights reserved.
 
-#This alogorithm in thinkscript and its associated documentation are protected under copyright law and may not be copied, reproduced, or distributed in any form, in whole or in part, without the prior written consent of the copyright owner.
+#This alogorithm written in thinkscript and its associated documentation are protected under copyright law and may not be copied, reproduced, or distributed in any form, in whole or in part, without the prior written consent of the copyright owner.
 
 #You may not sell, transfer, assign, or sublicense this algoithm, in whole or in part, to any third party. Any attempt to do so will be considered a breach of this #copyright and will result in immediate termination of any rights granted under this copyright.
 
@@ -10,7 +10,9 @@
 
 #This language clearly states that this algorithm is protected under copyright law and may not be sold, transferred, assigned, or sublicensed to any third party. It also #includes provisions for legal action in the event of a violation of the copyright.
 
-#K means with 5 clusters v1.0
+#K means clustering v1.0
+#Description:
+#   This version uses the algorithm k means clustering to find support and resistance levels using 5 clusters. 
 
 declare upper;
 
