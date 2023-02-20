@@ -1,0 +1,185 @@
+#Copyright 2023 Bigworm, All rights reserved.
+
+#This alogorithm in thinkscript and its associated documentation are protected under copyright law and may not be copied, reproduced, or distributed in any form, in whole or in part, without the prior written consent of the copyright owner.
+
+#You may not sell, transfer, assign, or sublicense this algoithm, in whole or in part, to any third party. Any attempt to do so will be considered a breach of this #copyright and will result in immediate termination of any rights granted under this copyright.
+
+#This copyright does not grant any rights to modify, adapt, or create derivative works of this algorithm. Any such actions must be approved in writing by the copyright #owner.
+
+#Violation of this copyright may result in legal action, including but not limited to injunctive relief, damages, and attorney fees."
+
+#This language clearly states that this algorithm is protected under copyright law and may not be sold, transferred, assigned, or sublicensed to any third party. It also #includes provisions for legal action in the event of a violation of the copyright.
+
+#K means with 5 clusters v1.0
+
+declare upper;
+
+input max_iter = 50;
+input Plot_band = 1;
+
+
+def n1;
+def n2;
+def n3;
+def n4;
+def n5;
+def c1;
+def c2;
+def c3;
+def c4;
+def c5;
+def sd1;
+def sd2;
+def sd3;
+def sd4;
+def sd5;
+def d1;
+def d2;
+def d3;
+def d4;
+def d5;
+def bn = BarNumber();
+def x1 = if !isnan(close) then close else close[1];
+
+def chart_flag = if IsNaN(x1[-max_iter]) then 1 else 0;
+def start_bar = if IsNaN(x1[-max_iter]) and !IsNaN(x1[-(max_iter - 1)]) then BarNumber() else start_bar[1];
+def c_start = if IsNaN(x1[-(max_iter+1)]) then 1 else 0;
+def offset = BarNumber() - start_bar;
+
+if chart_flag == 0
+then
+{
+    n1 = 0;
+    n2 = 0;
+    n3 = 0;
+    n4 = 0;
+    n5 = 0;
+    sd1 = 0;
+    sd2 = 0;
+    sd3 = 0;
+    sd4 = 0;
+    sd5 = 0;
+    d1 = 0;
+    d2 = 0;
+    d3 = 0;
+    d4 = 0;
+    d5 = 0;
+    c1 = if(c_start == 1, getvalue(x1,Floor(Round(Random() * barnumber()))), 1);
+    c2 = if(c_start == 1, getvalue(x1,Floor(Round(Random() * barnumber()))), 1);
+    c3 = if(c_start == 1, getvalue(x1,Floor(Round(Random() * barnumber()))), 1);
+    c4 = if(c_start == 1, getvalue(x1,Floor(Round(Random() * barnumber()))), 1);
+    c5 = if(c_start == 1, getvalue(x1,Floor(Round(Random() * barnumber()))), 1);
+
+}
+else
+{
+
+    n1 = fold i1 = offset to bn
+         with n1_
+         do n1_ + if Sqrt(Sqr(GetValue(x1, i1) - c1[1])) < Sqrt(Sqr(GetValue(x1, i1) - c2[1])) and Sqrt(Sqr(GetValue(x1, i1) - c1[1])) < Sqrt(Sqr(GetValue(x1, i1) - c3[1])) and  Sqrt(Sqr(GetValue(x1, i1) - c1[1])) < Sqrt(Sqr(GetValue(x1, i1) - c4[1])) and Sqrt(Sqr(GetValue(x1, i1) - c1[1])) < Sqrt(Sqr(GetValue(x1, i1) - c5[1])) then 1 else 0;
+
+
+    n2 = fold i2 = offset to bn
+         with n2_
+         do n2_ + if Sqrt(Sqr(GetValue(x1, i2) - c2[1])) < Sqrt(Sqr(GetValue(x1, i2) - c1[1])) and Sqrt(Sqr(GetValue(x1, i2) - c2[1])) < Sqrt(Sqr(GetValue(x1, i2) - c3[1])) and Sqrt(Sqr(GetValue(x1, i2) - c2[1])) < Sqrt(Sqr(GetValue(x1, i2) - c4[1])) and Sqrt(Sqr(GetValue(x1, i2) - c2[1])) < Sqrt(Sqr(GetValue(x1, i2) - c5[1])) then 1 else 0;
+
+    n3 = fold i3 = offset to bn
+         with n3_
+         do n3_ + if Sqrt(Sqr(GetValue(x1, i3) - c3[1])) < Sqrt(Sqr(GetValue(x1, i3) - c2[1])) and Sqrt(Sqr(GetValue(x1, i3) - c3[1])) < Sqrt(Sqr(GetValue(x1, i3) - c1[1])) and Sqrt(Sqr(GetValue(x1, i3) - c3[1])) < Sqrt(Sqr(GetValue(x1, i3) - c4[1])) and Sqrt(Sqr(GetValue(x1, i3) - c3[1])) < Sqrt(Sqr(GetValue(x1, i3) - c5[1])) then 1 else 0;
+
+    n4 = fold i4 = offset to bn
+         with n4_
+         do n4_ + if Sqrt(Sqr(GetValue(x1, i4) - c4[1])) < Sqrt(Sqr(GetValue(x1, i4) - c1[1])) and Sqrt(Sqr(GetValue(x1, i4) - c4[1])) < Sqrt(Sqr(GetValue(x1, i4) - c2[1])) and Sqrt(Sqr(GetValue(x1, i4) - c4[1])) < Sqrt(Sqr(GetValue(x1, i4) - c3[1])) and Sqrt(Sqr(GetValue(x1, i4) - c4[1])) < Sqrt(Sqr(GetValue(x1, i4) - c5[1])) then 1 else 0;
+
+    n5 = fold i5 = offset to bn
+         with n5_
+         do n5_ + if Sqrt(Sqr(GetValue(x1, i5) - c5[1])) < Sqrt(Sqr(GetValue(x1, i5) - c1[1])) and Sqrt(Sqr(GetValue(x1, i5) - c5[1])) < Sqrt(Sqr(GetValue(x1, i5) - c2[1])) and Sqrt(Sqr(GetValue(x1, i5) - c5[1])) < Sqrt(Sqr(GetValue(x1, i5) - c3[1])) and Sqrt(Sqr(GetValue(x1, i5) - c5[1])) < Sqrt(Sqr(GetValue(x1, i5) - c4[1])) then 1 else 0;
+
+
+
+    c1 = (fold j1 = offset to bn
+         with c1_
+         do c1_ + if Sqrt(Sqr(GetValue(x1, j1) - c1[1])) < Sqrt(Sqr(GetValue(x1, j1) - c2[1])) and Sqrt(Sqr(GetValue(x1, j1) - c1[1])) < Sqrt(Sqr(GetValue(x1, j1) - c3[1])) and  Sqrt(Sqr(GetValue(x1, j1) - c1[1])) < Sqrt(Sqr(GetValue(x1, j1) - c4[1])) and Sqrt(Sqr(GetValue(x1, j1) - c1[1])) < Sqrt(Sqr(GetValue(x1, j1) - c5[1])) then GetValue(x1, j1) else 0) / n1 ;
+
+    c2 = (fold j2 = offset to bn
+         with c2_
+         do c2_ + if Sqrt(Sqr(GetValue(x1, j2) - c2[1])) < Sqrt(Sqr(GetValue(x1, j2) - c1[1])) and Sqrt(Sqr(GetValue(x1, j2) - c2[1])) < Sqrt(Sqr(GetValue(x1, j2) - c3[1])) and Sqrt(Sqr(GetValue(x1, j2) - c2[1])) < Sqrt(Sqr(GetValue(x1, j2) - c4[1])) and Sqrt(Sqr(GetValue(x1, j2) - c2[1])) < Sqrt(Sqr(GetValue(x1, j2) - c5[1])) then GetValue(x1, j2) else 0) / n2;
+
+
+    c3 = (fold j3 = offset to bn
+         with c3_
+         do c3_ + if Sqrt(Sqr(GetValue(x1, j3) - c3[1])) < Sqrt(Sqr(GetValue(x1, j3) - c2[1])) and Sqrt(Sqr(GetValue(x1, j3) - c3[1])) < Sqrt(Sqr(GetValue(x1, j3) - c1[1])) and Sqrt(Sqr(GetValue(x1, j3) - c3[1])) < Sqrt(Sqr(GetValue(x1, j3) - c4[1])) and Sqrt(Sqr(GetValue(x1, j3) - c3[1])) < Sqrt(Sqr(GetValue(x1, j3) - c5[1])) then GetValue(x1, j3) else 0) / n3;
+
+    c4 = (fold j4 = offset to bn
+         with c4_
+         do c4_ + if Sqrt(Sqr(GetValue(x1, j4) - c4[1])) < Sqrt(Sqr(GetValue(x1, j4) - c1[1])) and Sqrt(Sqr(GetValue(x1, j4) - c4[1])) < Sqrt(Sqr(GetValue(x1, j4) - c2[1])) and Sqrt(Sqr(GetValue(x1, j4) - c4[1])) < Sqrt(Sqr(GetValue(x1, j4) - c3[1])) and Sqrt(Sqr(GetValue(x1, j4) - c4[1])) < Sqrt(Sqr(GetValue(x1, j4) - c5[1])) then GetValue(x1, j4) else 0) / n4;
+
+    c5 = (fold j5 = offset to bn
+         with c5_
+         do c5_ + if Sqrt(Sqr(GetValue(x1, j5) - c5[1])) < Sqrt(Sqr(GetValue(x1, j5) - c1[1])) and Sqrt(Sqr(GetValue(x1, j5) - c5[1])) < Sqrt(Sqr(GetValue(x1, j5) - c2[1])) and Sqrt(Sqr(GetValue(x1, j5) - c5[1])) < Sqrt(Sqr(GetValue(x1, j5) - c3[1])) and Sqrt(Sqr(GetValue(x1, j5) - c5[1])) < Sqrt(Sqr(GetValue(x1, j5) - c4[1])) then GetValue(x1, j5) else 0) / n5 ;
+
+
+    sd1 = Sqrt((fold k1 = offset to bn
+         with sd1_
+         do sd1_ + if Sqrt(Sqr(GetValue(x1, k1) - c1[1])) < Sqrt(Sqr(GetValue(x1, k1) - c2[1])) and Sqrt(Sqr(GetValue(x1, k1) - c1[1])) < Sqrt(Sqr(GetValue(x1, k1) - c3[1])) and  Sqrt(Sqr(GetValue(x1, k1) - c1[1])) < Sqrt(Sqr(GetValue(x1, k1) - c4[1])) and Sqrt(Sqr(GetValue(x1, k1) - c1[1])) < Sqrt(Sqr(GetValue(x1, k1) - c5[1])) then Sqr((GetValue(x1, k1) - c1[1])) else 0) /n1);
+
+    sd2 = Sqrt((fold k2 = offset to bn
+         with sd2_
+         do sd2_ + if Sqrt(Sqr(GetValue(x1, k2) - c2[1])) < Sqrt(Sqr(GetValue(x1, k2) - c1[1])) and Sqrt(Sqr(GetValue(x1, k2) - c2[1])) < Sqrt(Sqr(GetValue(x1, k2) - c3[1])) and Sqrt(Sqr(GetValue(x1, k2) - c2[1])) < Sqrt(Sqr(GetValue(x1, k2) - c4[1])) and Sqrt(Sqr(GetValue(x1, k2) - c2[1])) < Sqrt(Sqr(GetValue(x1, k2) - c5[1])) then Sqr(GetValue(x1, k2) - c2[1]) else 0) / n2);
+
+    sd3 = Sqrt((fold k3 = offset to bn
+         with sd3_
+         do sd3_ + if Sqrt(Sqr(GetValue(x1, k3) - c3[1])) < Sqrt(Sqr(GetValue(x1, k3) - c2[1])) and Sqrt(Sqr(GetValue(x1, k3) - c3[1])) < Sqrt(Sqr(GetValue(x1, k3) - c1[1])) and Sqrt(Sqr(GetValue(x1, k3) - c3[1])) < Sqrt(Sqr(GetValue(x1, k3) - c4[1])) and Sqrt(Sqr(GetValue(x1, k3) - c3[1])) < Sqrt(Sqr(GetValue(x1, k3) - c5[1])) then Sqr(GetValue(x1, k3) - c3[1]) else 0) / n3);
+
+    sd4 = Sqrt((fold k4 = offset to bn
+         with sd4_
+         do sd4_ + if Sqrt(Sqr(GetValue(x1, k4) - c4[1])) < Sqrt(Sqr(GetValue(x1, k4) - c1[1])) and Sqrt(Sqr(GetValue(x1, k4) - c4[1])) < Sqrt(Sqr(GetValue(x1, k4) - c2[1])) and Sqrt(Sqr(GetValue(x1, k4) - c4[1])) < Sqrt(Sqr(GetValue(x1, k4) - c3[1])) and Sqrt(Sqr(GetValue(x1, k4) - c4[1])) < Sqrt(Sqr(GetValue(x1, k4) - c5[1])) then Sqr(GetValue(x1, k4) - c4[1]) else 0) / n4);
+
+
+    sd5 = Sqrt((fold k5 = offset to bn
+         with sd5_
+         do sd5_ + if Sqrt(Sqr(GetValue(x1, k5) - c5[1])) < Sqrt(Sqr(GetValue(x1, k5) - c1[1])) and Sqrt(Sqr(GetValue(x1, k5) - c5[1])) < Sqrt(Sqr(GetValue(x1, k5) - c2[1])) and Sqrt(Sqr(GetValue(x1, k5) - c5[1])) < Sqrt(Sqr(GetValue(x1, k5) - c3[1])) and Sqrt(Sqr(GetValue(x1, k5) - c5[1])) < Sqrt(Sqr(GetValue(x1, k5) - c4[1])) then Sqr(GetValue(x1, k5) - c5[1]) else 0) / n5);
+
+
+    d1 = n1 /(n1+n2+n3+n4+n5);
+    d2 = n2 /(n1+n2+n3+n4+n5);
+    d3 = n3 /(n1+n2+n3+n4+n5);
+    d4 = n4 /(n1+n2+n3+n4+n5);
+    d5 = n5 /(n1+n2+n3+n4+n5);
+}
+
+#regular plots
+plot out1 = HighestAll(if IsNaN(x1[-1]) then c1 else Double.NaN);
+plot sd1_h = if Plot_band then HighestAll(if IsNaN(x1[-1]) then c1 + sd1 else Double.NaN) else Double.NaN;
+plot sd1_l = if Plot_band then HighestAll(if IsNaN(x1[-1]) then c1 - sd1 else Double.NaN) else Double.NaN;
+AddCloud(sd1_h, sd1_l, Color.RED, Color.RED);
+plot out2 = HighestAll(if IsNaN(x1[-1]) then c2 else Double.NaN);
+plot sd2_h = if Plot_band then HighestAll(if IsNaN(x1[-1]) then c2 + sd2 else Double.NaN) else Double.NaN;
+plot sd2_l = if Plot_band then HighestAll(if IsNaN(x1[-1]) then c2 - sd2 else Double.NaN) else Double.NaN;
+AddCloud(sd2_h, sd2_l, Color.GREEN, Color.GREEN);
+plot out3 = HighestAll(if IsNaN(x1[-1]) then c3 else Double.NaN);
+plot sd3_h = if Plot_band then HighestAll(if IsNaN(x1[-1]) then c3 + sd3 else Double.NaN) else Double.NaN;
+plot sd3_l = if Plot_band then HighestAll(if IsNaN(x1[-1]) then c3 - sd3 else Double.NaN) else Double.NaN;
+AddCloud(sd3_h, sd3_l, Color.CYAN, Color.CYAN);
+plot out4 = HighestAll(if IsNaN(x1[-1]) then c4 else Double.NaN);
+plot sd4_h = if Plot_band then HighestAll(if IsNaN(x1[-1]) then c4 + sd4 else Double.NaN) else Double.NaN;
+plot sd4_l = if Plot_band then HighestAll(if IsNaN(x1[-1]) then c4 - sd4 else Double.NaN) else Double.NaN;
+AddCloud(sd4_h, sd4_l, Color.MAGENTA, Color.MAGENTA);
+plot out5 = HighestAll(if IsNaN(x1[-1]) then c5 else Double.NaN);
+plot sd5_h = if Plot_band then HighestAll(if IsNaN(x1[-1]) then c5 + sd5 else Double.NaN) else Double.NaN;
+plot sd5_l = if Plot_band then HighestAll(if IsNaN(x1[-1]) then c5 - sd5 else Double.NaN) else Double.NaN;
+AddCloud(sd5_h, sd5_l, Color.PINK, Color.PINK);
+
+#color plots
+out1.SetDefaultColor(Color.RED);
+out2.SetDefaultColor(Color.RED);
+out3.SetDefaultColor(Color.RED);
+out4.SetDefaultColor(Color.RED);
+out5.SetDefaultColor(Color.RED);
+
+addlabel(1, "Bars" + barnumber(),color.RED);
+addlabel(1, "cluster 1 : " + d1,color.RED);
+addlabel(1, "cluster 2 : " + d2,color.GREEN);
+addlabel(1, "cluster 3 : " + d3,color.CYAN);
+addlabel(1, "cluster 4 : " + d4,color.Magenta);
+addlabel(1, "cluster 5 : " + d5,color.PINK);
