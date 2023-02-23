@@ -1,19 +1,14 @@
-#Copyright 2023 Bigworm, All rights reserved.
-
-#This alogorithm written in thinkscript and its associated documentation are protected under copyright law and may not be copied, reproduced, or distributed in any form, in whole or in part, without the prior written consent of the copyright owner.
-
-#You may not sell, transfer, assign, or sublicense this algoithm, in whole or in part, to any third party. Any attempt to do so will be considered a breach of this #copyright and will result in immediate termination of any rights granted under this copyright.
-
-#This copyright does not grant any rights to modify, adapt, or create derivative works of this algorithm. Any such actions must be approved in writing by the copyright #owner.
-
-#Violation of this copyright may result in legal action, including but not limited to injunctive relief, damages, and attorney fees."
-
-#This language clearly states that this algorithm is protected under copyright law and may not be sold, transferred, assigned, or sublicensed to any third party. It also #includes provisions for legal action in the event of a violation of the copyright.
-
-#K means clustering v1.0
-#Description:
-#   This version uses the algorithm k means clustering to find support and resistance levels using 5 clusters. 
-
+# K-means clustering with 5 centroids
+#
+# Free for use for non commercial. Header credits must be included when any changes or any form of the code included in this package is used.
+# User assumes all risk. Author not responsible for errors or use of tool.
+# Copyright (c) 2023 Bigworm
+#
+# 
+# Join us at: https://discord.gg/6g3VmqzYNg
+#
+#
+# v1.0 - Bigworm created initial algorithm
 declare upper;
 
 input max_iter = 50;
