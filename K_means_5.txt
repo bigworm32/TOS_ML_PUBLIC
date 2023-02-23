@@ -6,7 +6,7 @@
 #
 # 
 # Join us at: https://discord.gg/6g3VmqzYNg
-#
+# Github : https://github.com/bigworm32
 #
 # v1.0 - Bigworm created initial algorithm
 declare upper;
